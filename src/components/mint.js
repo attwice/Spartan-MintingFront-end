@@ -18,37 +18,37 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-const mintNFT = async (amount, price, state) => {
-  const { address } = await getCurrentWalletConnected();
-  if (address === "") {
-    return {
-      success: false,
-      status: "Please make sure wallet connected!",
-    }
-  }
-  else {
-    const _amountOfEther = web3.utils.toWei(web3.utils.toBN(price), 'ether') * web3.utils.toBN(amount) / web3.utils.toBN(100);
-    if (state === true) {
-      contract.methods.presaleKangaroo(amount).send({ from: address, gas: 150000 * amount, value: _amountOfEther })
-        .on("confirmation", function () {
-        })
-        .on('error', async function (error, receipt) {
-          console.log(error);
-        });
-    } else {
-      contract.methods.publicsaleKangaroo(amount).send({ from: address, gas: 150000 * amount, value: _amountOfEther })
-        .on("confirmation", function () {
-        })
-        .on('error', async function (error, receipt) {
-          console.log(error);
-        });
-    }
+// const mintNFT = async (amount, price, state) => {
+//   const { address } = await getCurrentWalletConnected();
+//   if (address === "") {
+//     return {
+//       success: false,
+//       status: "Please make sure wallet connected!",
+//     }
+//   }
+//   else {
+//     const _amountOfEther = web3.utils.toWei(web3.utils.toBN(price), 'ether') * web3.utils.toBN(amount) / web3.utils.toBN(100);
+//     if (state === true) {
+//       contract.methods.presaleKangaroo(amount).send({ from: address, gas: 150000 * amount, value: _amountOfEther })
+//         .on("confirmation", function () {
+//         })
+//         .on('error', async function (error, receipt) {
+//           console.log(error);
+//         });
+//     } else {
+//       contract.methods.publicsaleKangaroo(amount).send({ from: address, gas: 150000 * amount, value: _amountOfEther })
+//         .on("confirmation", function () {
+//         })
+//         .on('error', async function (error, receipt) {
+//           console.log(error);
+//         });
+//     }
 
-    return {
-      status: "",
-    }
-  }
-}
+//     return {
+//       status: "",
+//     }
+//   }
+// }
 
 
 
